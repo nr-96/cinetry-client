@@ -1,7 +1,14 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { movieService } from '../services/movies';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    [movieService.reducerPath]: movieService.reducer
+  },
+  middleware: (defaultMiddleware) => {
+    return defaultMiddleware()
+      .concat(movieService.middleware);
+  }
 });
 
 export type AppDispatch = typeof store.dispatch;
