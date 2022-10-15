@@ -1,2 +1,2 @@
-# cinetry-client
-client app for 'cinema-registry at your fingertips'
+# CINETRY - The CINEma-regisTRY at your fingerprints.
+### client application
