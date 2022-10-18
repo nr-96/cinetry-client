@@ -1,21 +1,20 @@
 import { Row, Col, RowProps, ColProps } from 'antd';
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from './common';
 
 interface IRowProps {
-  type?: 'primary'
+  type?: 'primary' | 'transparent'
   justify?: RowProps['justify']
   align?: RowProps['align']
   minHeight?: 'auto' | '100vh'
 }
 
 interface IContainerProps extends IRowProps, ColProps {
-  children: JSX.Element
+  children: JSX.Element | string
 }
 
 function Container({ 
-  type = 'primary', 
+  type = 'transparent', 
   justify,
   align,
   span,
@@ -24,10 +23,10 @@ function Container({
   md,
   lg,
   minHeight = 'auto', 
-  children 
+  children
 }: IContainerProps) {
   return (
-    <StyledRow type={ type } justify={ justify } align={align} minHeight={ minHeight }>
+    <StyledRow type={ type } justify={ justify } align={align} >
       <Col span={span} xs={xs} sm={sm} md={md} lg={lg} >
         { children }
       </Col>
@@ -37,7 +36,7 @@ function Container({
 
 const StyledRow = styled(Row)<IRowProps>`
   background: ${({ type = 'primary' }) => colors[`bg:${type}`]};
-  min-height: ${({ minHeight }) => minHeight};
+  // min-height: ${({ minHeight }) => minHeight};
 `
 
 export default Container;
