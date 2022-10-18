@@ -3,7 +3,7 @@ import { TMovie } from '../models/movies';
 
 const { REACT_APP_BASE_URL } = process.env;
 
-export const movieService = createApi({
+const movieService = createApi({
   reducerPath: 'moviesService',
   baseQuery: fetchBaseQuery({ baseUrl: REACT_APP_BASE_URL }),
   endpoints: (builder) => ({
@@ -19,3 +19,5 @@ export const movieService = createApi({
 export const {
   useGetTrendingMoviesQuery
 } = movieService;
+
+export default movieService;
