@@ -27,6 +27,9 @@ interface IQTrendingMovies {
   results: Array<IMovieListItem>;
 }
 
+let Authorization =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjAyODI2LCJleHAiOjE2NjYyMTc4MjZ9.D4-T-o83eWc8PybGJOWnagG1OVaeqsKhOg04wTW90Sc';
+
 const moviesService = createApi({
   reducerPath: 'moviesService',
   baseQuery: fetchBaseQuery({ baseUrl: REACT_APP_BASE_URL }),
@@ -39,10 +42,35 @@ const moviesService = createApi({
         url: '/movies/trending',
         method: 'GET',
         headers: {
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjAyODI2LCJleHAiOjE2NjYyMTc4MjZ9.D4-T-o83eWc8PybGJOWnagG1OVaeqsKhOg04wTW90Sc',
+          Authorization,
         },
       }),
+      transformResponse: ({ data }) => {
+        const results = data.map((movie: IMovieListResponseItem) => {
+          const { watch_later: watchLater, ...rest } = movie;
+          return {
+            watchLater,
+            ...rest,
+          };
+        });
+
+        return { results };
+      },
+    }),
+
+    /**
+     * Side-effect to discover movies
+     */
+    discoverMovies: builder.query<IQTrendingMovies, void>({
+      query: (params) => {
+        return {
+          url: '/movies/list',
+          method: 'GET',
+          headers: {
+            Authorization,
+          },
+        };
+      },
       transformResponse: ({ data }) => {
         const results = data.map((movie: IMovieListResponseItem) => {
           const { watch_later: watchLater, ...rest } = movie;
@@ -58,6 +86,7 @@ const moviesService = createApi({
   }),
 });
 
-export const { useGetTrendingMoviesQuery } = moviesService;
+export const { useGetTrendingMoviesQuery, useDiscoverMoviesQuery } =
+  moviesService;
 
 export default moviesService;

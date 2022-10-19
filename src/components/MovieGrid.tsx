@@ -11,18 +11,17 @@ function MovieGrid({ movies }: IMovieGridProps) {
   return (
     <StyledCard>
       <Row gutter={[16, 16]}>
-        <Col xs={12} sm={8} md={6} lg={4} xl={3}>
-          {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
+        {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
+          <Col key={id} xs={12} sm={8} md={6} lg={4} xl={3}>
             <MovieCard
-              key={id}
               title={title}
               poster={poster}
               genre={genre}
               watchLater={watchLater}
               favourite={favourite}
             />
-          ))}
-        </Col>
+          </Col>
+        ))}
       </Row>
     </StyledCard>
   );
