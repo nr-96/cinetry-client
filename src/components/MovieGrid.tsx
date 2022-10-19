@@ -12,8 +12,8 @@ function MovieGrid({ movies }: IMovieGridProps) {
     <StyledCard>
       <Row gutter={[16, 16]}>
         <Col xs={12} sm={8} md={6} lg={4} xl={3}>
-          {movies.map(({ id, title, cover, genre }) => (
-            <MovieCard key={id} title={title} cover={cover} genre={genre} />
+          {movies.map(({ id, title, poster, genre }) => (
+            <MovieCard key={id} title={title} poster={poster} genre={genre} />
           ))}
         </Col>
       </Row>

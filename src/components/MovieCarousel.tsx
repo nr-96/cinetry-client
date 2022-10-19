@@ -13,6 +13,7 @@ function MovieCarousel({ movies }: IMovieCarouselProps) {
   return (
     <StyledCard bordered={false}>
       <StyledCarousel
+        slidesToSlide={2}
         swipeable={false}
         draggable={false}
         showDots={false}
@@ -38,16 +39,16 @@ function MovieCarousel({ movies }: IMovieCarouselProps) {
             items: 2,
           },
         }}
-        infinite={true}
+        infinite={false}
         autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
+        keyBoardControl={false}
+        customTransition="transform 300ms ease-in"
+        transitionDuration={300}
         containerClass="carousel-container"
         itemClass="carousel-item"
       >
-        {movies.map(({ id, title, cover, genre }) => (
-          <MovieCard key={id} title={title} cover={cover} genre={genre} />
+        {movies.map(({ id, title, poster, genre }) => (
+          <MovieCard key={id} title={title} poster={poster} genre={genre} />
         ))}
       </StyledCarousel>
     </StyledCard>

@@ -5,15 +5,15 @@ import { colors } from './common';
 
 export interface IMovieCardProps {
   title: string;
-  cover: string;
+  poster: string;
   genre: Array<{ id: number; name: string }>;
 }
 
-function MovieCard({ title, cover, genre }: IMovieCardProps) {
+function MovieCard({ title, poster, genre }: IMovieCardProps) {
   const baseUrl = 'https://image.tmdb.org/t/p/original';
   return (
     <StyledCard>
-      <img style={{ width: '100%' }} alt={title} src={`${baseUrl}${cover}`} />
+      <img style={{ width: '100%' }} alt={title} src={`${baseUrl}${poster}`} />
       <StyledActions>
         <div className="action-item">
           <Icons.ExpandMovieIcon />

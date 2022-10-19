@@ -1,4 +1,5 @@
-import { Container, Button } from '../../components';
+import { Container } from '../../components';
+import LoginFeature from '../../features/Login';
 
 function LoginPage() {
   return (
@@ -11,9 +12,7 @@ function LoginPage() {
       md={8}
       lg={6}
     >
-      <Button type="primary" width="100%">
-        Login
-      </Button>
+      <LoginFeature />
     </Container>
   );
 }

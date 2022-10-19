@@ -1,13 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import movieService from '../services/movies';
+import authService from '../services/auth';
+import moviesService from '../services/movies';
 
 export const store = configureStore({
   reducer: {
-    [movieService.reducerPath]: movieService.reducer
+    [authService.reducerPath]: authService.reducer,
+    [moviesService.reducerPath]: moviesService.reducer
   },
   middleware: (defaultMiddleware) => {
     return defaultMiddleware()
-      .concat(movieService.middleware);
+      .concat(moviesService.middleware);
   }
 });
 
