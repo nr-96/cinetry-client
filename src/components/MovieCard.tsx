@@ -7,11 +7,17 @@ export interface IMovieCardProps {
   title: string;
   poster: string;
   genre: Array<{ id: number; name: string }>;
-  watchLater: boolean
-  favourite: boolean
+  watchLater: boolean;
+  favourite: boolean;
 }
 
-function MovieCard({ title, poster, genre, watchLater, favourite }: IMovieCardProps) {
+function MovieCard({
+  title,
+  poster,
+  genre,
+  watchLater,
+  favourite,
+}: IMovieCardProps) {
   const baseUrl = 'https://image.tmdb.org/t/p/original';
   return (
     <StyledCard>

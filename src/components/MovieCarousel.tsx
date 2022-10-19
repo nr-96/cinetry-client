@@ -48,11 +48,11 @@ function MovieCarousel({ movies }: IMovieCarouselProps) {
         itemClass="carousel-item"
       >
         {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
-          <MovieCard 
-            key={id} 
-            title={title} 
-            poster={poster} 
-            genre={genre} 
+          <MovieCard
+            key={id}
+            title={title}
+            poster={poster}
+            genre={genre}
             watchLater={watchLater}
             favourite={favourite}
           />

@@ -11,8 +11,8 @@ interface IMovieListItem {
   poster: string;
   year: string;
   genre: Array<IGenre>;
-  watchLater: boolean
-  favourite: boolean
+  watchLater: boolean;
+  favourite: boolean;
 }
 interface IMovieListResponseItem {
   id: number;
@@ -20,8 +20,8 @@ interface IMovieListResponseItem {
   poster: string;
   year: string;
   genre: Array<IGenre>;
-  watch_later: boolean
-  favourite: boolean
+  watch_later: boolean;
+  favourite: boolean;
 }
 interface IQTrendingMovies {
   results: Array<IMovieListItem>;
@@ -48,12 +48,12 @@ const moviesService = createApi({
           const { watch_later: watchLater, ...rest } = movie;
           return {
             watchLater,
-            ...rest
-          }
+            ...rest,
+          };
         });
 
         return { results };
-      }
+      },
     }),
   }),
 });
