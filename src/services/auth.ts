@@ -9,17 +9,15 @@ const authService = createApi({
     /**
      * Side-effect to authorize
      */
-     doAuthorize: builder.mutation<null, void>({
+    doAuthorize: builder.mutation<null, void>({
       query: () => ({
         url: '/auth/login',
-        method: 'POST'
-      })
-    })
-  })
+        method: 'POST',
+      }),
+    }),
+  }),
 });
 
-export const {
-  useDoAuthorizeMutation
-} = authService;
+export const { useDoAuthorizeMutation } = authService;
 
 export default authService;

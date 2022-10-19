@@ -1,4 +1,4 @@
-import {  message } from 'antd';
+import { message } from 'antd';
 
 const showSuccess = (text: string) => {
   message.success(text);
@@ -10,5 +10,5 @@ const showError = (text: string) => {
 
 export default {
   showSuccess,
-  showError
-}
+  showError,
+};

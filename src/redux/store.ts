@@ -5,12 +5,11 @@ import moviesService from '../services/movies';
 export const store = configureStore({
   reducer: {
     [authService.reducerPath]: authService.reducer,
-    [moviesService.reducerPath]: moviesService.reducer
+    [moviesService.reducerPath]: moviesService.reducer,
   },
   middleware: (defaultMiddleware) => {
-    return defaultMiddleware()
-      .concat(moviesService.middleware);
-  }
+    return defaultMiddleware().concat(moviesService.middleware);
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;

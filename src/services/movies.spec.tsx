@@ -1,4 +1,4 @@
-import { waitFor } from '@testing-library/react'
+import { waitFor } from '@testing-library/react';
 import nock from 'nock';
 import { store } from '../redux/store';
 import { useGetTrendingMoviesQuery } from './movies';
@@ -12,20 +12,20 @@ describe('service: #movies', () => {
     function Movies() {
       const sideEffect = useGetTrendingMoviesQuery();
       isLoading = sideEffect.isLoading;
-      data = sideEffect.data
-      isError = sideEffect.isError
-      error = sideEffect.error
+      data = sideEffect.data;
+      isError = sideEffect.isError;
+      error = sideEffect.error;
 
-      return <></>
+      return <></>;
     }
 
     renderWithProviders(<Movies />, { store });
-    await waitFor(() => expect(isLoading).toBe(false))
+    await waitFor(() => expect(isLoading).toBe(false));
 
-    console.log(error)
-    console.log(data)
-    console.log(isError)
+    console.log(error);
+    console.log(data);
+    console.log(isError);
   });
 });
 
-export {}
+export {};

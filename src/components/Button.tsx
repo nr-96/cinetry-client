@@ -5,20 +5,20 @@ import { colors } from './common';
 interface IButtonProps {
   type: 'primary';
   name: string;
-  loading?: boolean,
+  loading?: boolean;
   width?: 'auto' | '100%';
-  onClick?: ButtonProps['onClick']
+  onClick?: ButtonProps['onClick'];
 }
 
-function Button({ 
-  type, 
-  width = 'auto', 
-  name, 
+function Button({
+  type,
+  width = 'auto',
+  name,
   loading = false,
-  onClick 
+  onClick,
 }: IButtonProps) {
   const props: {
-    onClick?: IButtonProps['onClick']
+    onClick?: IButtonProps['onClick'];
   } = {};
 
   if (onClick) {
@@ -26,7 +26,7 @@ function Button({
   }
 
   return (
-    <StyledButton type={type} width={width} loading={loading} { ...props }>
+    <StyledButton type={type} width={width} loading={loading} {...props}>
       {name}
     </StyledButton>
   );
