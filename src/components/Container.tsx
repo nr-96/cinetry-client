@@ -14,7 +14,7 @@ interface IContainerProps extends IRowProps, ColProps {
 }
 
 function Container({ 
-  type = 'transparent', 
+  type, 
   justify,
   align,
   span,
@@ -26,7 +26,7 @@ function Container({
   children
 }: IContainerProps) {
   return (
-    <StyledRow type={ type } justify={ justify } align={align} >
+    <StyledRow type={ type } justify={ justify } align={align} minHeight={minHeight} >
       <Col span={span} xs={xs} sm={sm} md={md} lg={lg} >
         { children }
       </Col>
@@ -34,9 +34,9 @@ function Container({
   );
 };
 
-const StyledRow = styled(Row)<IRowProps>`
-  background: ${({ type = 'primary' }) => colors[`bg:${type}`]};
-  // min-height: ${({ minHeight }) => minHeight};
+const StyledRow = styled(({ minHeight, ...rest }) => <Row { ...rest } />)`
+  background: ${({ type = 'transparent' }: IRowProps) => colors[`bg:${type}`]};
+  min-height: ${({ minHeight }: IRowProps) => minHeight};
 `
 
 export default Container;

@@ -1,5 +1,6 @@
 export const colors = {
   'bg:primary': '#262626',
+  'bg:secondary': 'rgba(0, 0, 0, 0.85)',
   'bg:transparent': 'transparent',
 
   'button:primary': '#C62828',

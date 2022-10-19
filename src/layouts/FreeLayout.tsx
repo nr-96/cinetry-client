@@ -3,7 +3,7 @@ import { Container } from '../components';
 
 function FreeLayout() {
   return (
-    <Container type='primary' span={24}>
+    <Container type='primary' span={24} minHeight='100vh'>
       <Outlet />
     </Container>
   );

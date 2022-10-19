@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { unauthLoader } from './loaders/authLoader';
 import FreeLayout from './layouts/FreeLayout';
+import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/Login';
 import HomePage from './pages/Home';
 
@@ -14,7 +15,14 @@ function Router () {
         {
           path: "/",
           element: <LoginPage />
-        },
+        }
+      ],
+    },
+    {
+      path: "/home",
+      loader: unauthLoader,
+      element: <MainLayout />,
+      children: [
         {
           path: "/home",
           element: <HomePage />

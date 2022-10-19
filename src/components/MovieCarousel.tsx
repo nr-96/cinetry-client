@@ -2,13 +2,16 @@ import { Card } from 'antd';
 import styled from 'styled-components';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import MovieCard from './MovieCard';
+import MovieCard, { IMovieCardProps } from './MovieCard';
 import { colors } from './common';
 
-function MovieCarousel() {
+interface IMovieCarouselProps {
+  movies: Array<{ id: number } & IMovieCardProps>
+}
 
+function MovieCarousel({ movies }: IMovieCarouselProps) {
   return (
-    <StyledCard>
+    <StyledCard bordered={false}>
       <StyledCarousel
         swipeable={false}
         draggable={false}
@@ -44,7 +47,9 @@ function MovieCarousel() {
         containerClass="carousel-container"
         itemClass="carousel-item"
       >
-        <MovieCard title="test" cover="/nygOUcBKPHFTbxsYRFZVePqgPK6.jpg" />
+        {
+          movies.map(({ id, title, cover, genre }) => <MovieCard key={id} title={title} cover={cover} genre={genre} />)
+        }
       </StyledCarousel>
     </StyledCard>
   )

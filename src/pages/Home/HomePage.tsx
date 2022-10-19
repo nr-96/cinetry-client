@@ -1,9 +1,9 @@
-import { Container, MovieCarousel } from '../../components';
+import { Container } from '../../components';
 
 function HomePage () {
   return (
     <Container xs={24}>
-      <MovieCarousel  />
+      Home Page Content
     </Container>
   )
 };

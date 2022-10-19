@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import Icons from './Icons';
 import { colors } from './common';
 
-interface IMovieCardProps {
+export interface IMovieCardProps {
   title: string
   cover: string
+  genre: Array<{ id: number, name: string }>
 }
 
-
-function MovieCard({title, cover}: IMovieCardProps) {
+function MovieCard({ title, cover, genre }: IMovieCardProps) {
   const baseUrl = 'https://image.tmdb.org/t/p/original'
   return (
     <StyledCard>
@@ -26,9 +26,7 @@ function MovieCard({title, cover}: IMovieCardProps) {
         </div>
       </StyledActions>
       <StyledInfo>
-        <span>action</span>
-        <span>thriller</span>
-        <span>horror</span>
+        { genre.map(({ id, name }) => <span key={id}>{name}</span>) }
       </StyledInfo>
     </StyledCard>
   )
