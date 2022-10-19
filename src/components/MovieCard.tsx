@@ -7,9 +7,11 @@ export interface IMovieCardProps {
   title: string;
   poster: string;
   genre: Array<{ id: number; name: string }>;
+  watchLater: boolean
+  favourite: boolean
 }
 
-function MovieCard({ title, poster, genre }: IMovieCardProps) {
+function MovieCard({ title, poster, genre, watchLater, favourite }: IMovieCardProps) {
   const baseUrl = 'https://image.tmdb.org/t/p/original';
   return (
     <StyledCard>
@@ -19,10 +21,10 @@ function MovieCard({ title, poster, genre }: IMovieCardProps) {
           <Icons.ExpandMovieIcon />
         </div>
         <div className="action-item">
-          <Icons.FavouriteMovieIcon favourite={true} />
+          <Icons.FavouriteMovieIcon favourite={favourite} />
         </div>
         <div className="action-item">
-          <Icons.WatchLaterMovieIcon inList={true} />
+          <Icons.WatchLaterMovieIcon inList={watchLater} />
         </div>
       </StyledActions>
       <StyledInfo>

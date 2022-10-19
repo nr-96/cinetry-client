@@ -1,22 +1,30 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const { REACT_APP_BASE_URL } = process.env;
-
-interface IQueryResult {
-  data: Array<IMovieList>;
-}
-
 interface IGenre {
   id: number;
   name: string;
 }
-
-interface IMovieList {
+interface IMovieListItem {
   id: number;
   title: string;
   poster: string;
   year: string;
   genre: Array<IGenre>;
+  watchLater: boolean
+  favourite: boolean
+}
+interface IMovieListResponseItem {
+  id: number;
+  title: string;
+  poster: string;
+  year: string;
+  genre: Array<IGenre>;
+  watch_later: boolean
+  favourite: boolean
+}
+interface IQTrendingMovies {
+  results: Array<IMovieListItem>;
 }
 
 const moviesService = createApi({
@@ -26,15 +34,26 @@ const moviesService = createApi({
     /**
      * Side-effect to fetch trending movies
      */
-    getTrendingMovies: builder.query<IQueryResult, void>({
+    getTrendingMovies: builder.query<IQTrendingMovies, void>({
       query: () => ({
         url: '/movies/trending',
         method: 'GET',
         headers: {
           Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MTg1NTQ4LCJleHAiOjE2NjYyMDA1NDh9.Jbd_pePnecnV1m_-x_gSaZrZYieL-MpaOMRsWXbICI8',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjAyODI2LCJleHAiOjE2NjYyMTc4MjZ9.D4-T-o83eWc8PybGJOWnagG1OVaeqsKhOg04wTW90Sc',
         },
       }),
+      transformResponse: ({ data }) => {
+        const results = data.map((movie: IMovieListResponseItem) => {
+          const { watch_later: watchLater, ...rest } = movie;
+          return {
+            watchLater,
+            ...rest
+          }
+        });
+
+        return { results };
+      }
     }),
   }),
 });
