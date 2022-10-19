@@ -4,5 +4,5 @@ export const colors = {
   'bg:transparent': 'transparent',
 
   'button:primary': '#C62828',
-  'button:primary:focus': '#B71C1C'
+  'button:primary:focus': '#B71C1C',
 };

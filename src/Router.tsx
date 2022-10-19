@@ -5,35 +5,33 @@ import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/Login';
 import HomePage from './pages/Home';
 
-function Router () {
+function Router() {
   const routes = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       loader: unauthLoader,
       element: <FreeLayout />,
       children: [
         {
-          path: "/",
-          element: <LoginPage />
-        }
+          path: '/',
+          element: <LoginPage />,
+        },
       ],
     },
     {
-      path: "/home",
+      path: '/home',
       loader: unauthLoader,
       element: <MainLayout />,
       children: [
         {
-          path: "/home",
-          element: <HomePage />
-        }
+          path: '/home',
+          element: <HomePage />,
+        },
       ],
     },
   ]);
 
-  return (
-    <RouterProvider router={routes} />
-  )
+  return <RouterProvider router={routes} />;
 }
 
 export default Router;

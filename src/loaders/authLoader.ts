@@ -1,5 +1,4 @@
-import { redirect } from "react-router-dom";
-
+import { redirect } from 'react-router-dom';
 
 const isAuthorized = (): boolean => {
   const isAuthorized = false;
@@ -8,12 +7,12 @@ const isAuthorized = (): boolean => {
 
 export const authLoader = () => {
   if (!isAuthorized()) {
-    return redirect("/");
+    return redirect('/');
   }
 };
 
 export const unauthLoader = () => {
   if (isAuthorized()) {
-    return redirect("/movies");
+    return redirect('/movies');
   }
 };

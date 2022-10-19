@@ -1,25 +1,28 @@
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import { colors } from './common';
-const { Content: AntContent} = Layout;
+const { Content: AntContent } = Layout;
 
 interface IContentProps {
-  type?: 'primary' | 'transparent'
-  minHeight?: 'auto' | '100vh'
-  children: JSX.Element | string
+  type?: 'primary' | 'transparent';
+  minHeight?: 'auto' | '100vh';
+  children: JSX.Element | string;
 }
 
 function Content({ type, minHeight, children }: IContentProps) {
   return (
     <StyledContent type={type} minHeight={minHeight}>
-      { children }
+      {children}
     </StyledContent>
-  )
+  );
 }
 
-const StyledContent = styled(({ minHeight, ...rest }) => <AntContent { ...rest } />)`
+const StyledContent = styled(({ minHeight, ...rest }) => (
+  <AntContent {...rest} />
+))`
   padding: 25px 50px;
-  background: ${({ type = 'transparent' }: IContentProps) => colors[`bg:${type}`]};
+  background: ${({ type = 'transparent' }: IContentProps) =>
+    colors[`bg:${type}`]};
   min-height: ${({ minHeight }: IContentProps) => minHeight};
 `;
 

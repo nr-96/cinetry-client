@@ -14,9 +14,7 @@ function MainLayout() {
         <Outlet />
       </Content>
     </Layout>
-  )
+  );
 }
-
-
 
 export default MainLayout;

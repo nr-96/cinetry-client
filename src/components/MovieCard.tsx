@@ -4,16 +4,16 @@ import Icons from './Icons';
 import { colors } from './common';
 
 export interface IMovieCardProps {
-  title: string
-  cover: string
-  genre: Array<{ id: number, name: string }>
+  title: string;
+  cover: string;
+  genre: Array<{ id: number; name: string }>;
 }
 
 function MovieCard({ title, cover, genre }: IMovieCardProps) {
-  const baseUrl = 'https://image.tmdb.org/t/p/original'
+  const baseUrl = 'https://image.tmdb.org/t/p/original';
   return (
     <StyledCard>
-      <img style={{ width: '100%'}} alt={title} src={`${baseUrl}${cover}`}/>
+      <img style={{ width: '100%' }} alt={title} src={`${baseUrl}${cover}`} />
       <StyledActions>
         <div className="action-item">
           <Icons.ExpandMovieIcon />
@@ -26,10 +26,12 @@ function MovieCard({ title, cover, genre }: IMovieCardProps) {
         </div>
       </StyledActions>
       <StyledInfo>
-        { genre.map(({ id, name }) => <span key={id}>{name}</span>) }
+        {genre.map(({ id, name }) => (
+          <span key={id}>{name}</span>
+        ))}
       </StyledInfo>
     </StyledCard>
-  )
+  );
 }
 
 const StyledCard = styled(Card)`
@@ -41,7 +43,7 @@ const StyledCard = styled(Card)`
 
   &:hover img {
     z-index: 1;
-    transform: scale(1.05)
+    transform: scale(1.05);
   }
 
   .ant-card-body {
@@ -70,7 +72,7 @@ const StyledActions = styled.div`
       color: #d2cbcb;
     }
   }
-`
+`;
 
 const StyledInfo = styled.div`
   position: absolute;
