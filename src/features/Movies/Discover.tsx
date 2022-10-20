@@ -9,6 +9,7 @@ import {
   Input,
   Select,
   Pagination,
+  Spin,
 } from '../../components';
 import {
   useGetGenreListQuery,
@@ -36,12 +37,14 @@ function DiscoverMovies() {
   const sGenre = genre.join(',');
 
   const { data: genreData } = useGetGenreListQuery();
-  const { data } = useDiscoverMoviesQuery(queryParams);
+  const { data, isFetching: loadingMovies } =
+    useDiscoverMoviesQuery(queryParams);
+
   const toggleFavourite = useToggleFavourite();
   const toggleWatchLater = useToggleWatchLater();
 
   const debouncedFetch = useMemo(
-    () => debounce((query) => setQueryParams({ page, query }), 1000),
+    () => debounce((query) => setQueryParams({ page: 1, query }), 500),
     []
   );
 
@@ -77,10 +80,8 @@ function DiscoverMovies() {
   };
 
   useEffect(() => {
-    if (query) {
-      debouncedFetch(query);
-    }
-  }, [query, page]);
+    debouncedFetch(query);
+  }, [query, debouncedFetch]);
 
   useEffect(() => {
     setQueryParams({ page, year, genre: sGenre });
@@ -91,11 +92,12 @@ function DiscoverMovies() {
 
   return (
     <StyledWrapper>
-      <StyledTitle>Discover Movies</StyledTitle>
-
+      <StyledTitle data-testid="title">Discover Movies</StyledTitle>
+      <div data-testid="loading">{loadingMovies.toString()}</div>
       <Row justify="space-between">
         <Col md={6}>
           <Input
+            testId="search-input"
             placeholder="Search movie"
             value={query}
             onChange={handleSearch}
@@ -104,6 +106,7 @@ function DiscoverMovies() {
         <StyledFilterWrapper md={10}>
           <StyledLabel>Filter by:</StyledLabel>
           <Select.Single
+            testId="select-year"
             placeholder="2022"
             value={year}
             onChange={handleSelectYear}
@@ -135,22 +138,24 @@ function DiscoverMovies() {
 
       <Divider />
 
-      <MovieGrid>
-        {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
-          <Col key={id} xs={12} sm={8} md={6} lg={4} xl={3}>
-            <MovieCard
-              id={id}
-              title={title}
-              poster={poster}
-              genre={genre}
-              watchLater={watchLater}
-              favourite={favourite}
-              toggleFavourite={toggleFavourite}
-              toggleWatchLater={toggleWatchLater}
-            />
-          </Col>
-        ))}
-      </MovieGrid>
+      <Spin testId="loading-movies-spinner" loading={loadingMovies}>
+        <MovieGrid testId="movie-grid">
+          {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
+            <Col key={id} xs={12} sm={8} md={6} lg={4} xl={3}>
+              <MovieCard
+                id={id}
+                title={title}
+                poster={poster}
+                genre={genre}
+                watchLater={watchLater}
+                favourite={favourite}
+                toggleFavourite={toggleFavourite}
+                toggleWatchLater={toggleWatchLater}
+              />
+            </Col>
+          ))}
+        </MovieGrid>
+      </Spin>
 
       <Divider />
 

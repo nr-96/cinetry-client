@@ -54,7 +54,11 @@ function MovieCard({
         <div className="action-item">
           <Icons.ExpandMovieIcon />
         </div>
-        <div className="action-item" onClick={handleFavourite}>
+        <div
+          data-testid={`favoutite-action-${id}`}
+          className="action-item"
+          onClick={handleFavourite}
+        >
           <Icons.FavouriteMovieIcon favourite={favourite} />
         </div>
         <div className="action-item" onClick={handleWatchLater}>

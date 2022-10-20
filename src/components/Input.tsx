@@ -4,14 +4,20 @@ import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 
 interface IInputProps {
+  testId?: string;
   placeholder?: AntInputProps['placeholder'];
   value: string;
   onChange: AntInputProps['onChange'];
 }
 
-function Input({ placeholder, value, onChange }: IInputProps) {
+function Input({ testId, placeholder, value, onChange }: IInputProps) {
   return (
-    <StyledInput placeholder={placeholder} value={value} onChange={onChange} />
+    <StyledInput
+      data-testid={testId}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
 

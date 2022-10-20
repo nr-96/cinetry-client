@@ -1,4 +1,4 @@
-import { Select as AntSelect, SelectProps as AntSelectProps } from 'antd';
+import { Select as AntSelect } from 'antd';
 import styled from 'styled-components';
 
 interface ISelectOption {
@@ -7,6 +7,7 @@ interface ISelectOption {
 }
 
 interface ISelectProps {
+  testId?: string;
   placeholder?: string;
   options: Array<ISelectOption>;
   value?: string;
@@ -14,13 +15,20 @@ interface ISelectProps {
 }
 
 interface ISelectMultipleProps {
+  testId?: string;
   placeholder?: string;
   options: Array<ISelectOption>;
   value: string[];
   onChange: (value: string[]) => void;
 }
 
-function Single({ placeholder, options, value, onChange }: ISelectProps) {
+function Single({
+  testId,
+  placeholder,
+  options,
+  value,
+  onChange,
+}: ISelectProps) {
   const handleChange = (value: unknown) => {
     if (typeof value === 'string') {
       onChange(value);
@@ -31,6 +39,7 @@ function Single({ placeholder, options, value, onChange }: ISelectProps) {
 
   return (
     <StyledSelectSingle
+      data-testid={testId}
       placeholder={placeholder}
       value={value}
       onChange={handleChange}
@@ -45,6 +54,7 @@ function Single({ placeholder, options, value, onChange }: ISelectProps) {
 }
 
 function Multiple({
+  testId,
   placeholder,
   options,
   value,
@@ -60,6 +70,7 @@ function Multiple({
 
   return (
     <StyledSelectMultiple
+      data-testid={testId}
       allowClear
       mode="multiple"
       placeholder={placeholder}
@@ -83,6 +94,7 @@ const StyledSelectMultiple = styled(AntSelect)`
   min-width: 150px;
 `;
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   Single,
   Multiple,

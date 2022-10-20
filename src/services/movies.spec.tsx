@@ -1,18 +1,18 @@
 import { waitFor } from '@testing-library/react';
-import nock from 'nock';
 import { store } from '../redux/store';
-import { useGetTrendingMoviesQuery } from './movies';
+import { IQTrendingMovies, useGetTrendingMoviesQuery } from './movies';
 import { nockScope, renderWithProviders } from '../../test/test-utils';
 
-describe('service: #movies', () => {
+describe('service: #movies > trending', () => {
   it('should fetch trending movies as a list', async () => {
-    nockScope.nockMovies.fetchTrendingMovies();
+    const nockData = nockScope.nockMovies.fetchTrendingMovies();
 
-    let isLoading: boolean, data, isError, error;
+    let isLoading: boolean, data, isSuccess, isError, error;
     function Movies() {
       const sideEffect = useGetTrendingMoviesQuery();
       isLoading = sideEffect.isLoading;
       data = sideEffect.data;
+      isSuccess = sideEffect.isSuccess;
       isError = sideEffect.isError;
       error = sideEffect.error;
 
@@ -22,9 +22,25 @@ describe('service: #movies', () => {
     renderWithProviders(<Movies />, { store });
     await waitFor(() => expect(isLoading).toBe(false));
 
-    console.log(error);
-    console.log(data);
-    console.log(isError);
+    if (data) {
+      const movieData: IQTrendingMovies = data;
+
+      expect(movieData).toHaveProperty('results');
+      expect(Array.isArray(movieData.results)).toBeTruthy();
+      expect(movieData.results.length > 0).toBeTruthy();
+
+      const sampleMovie = movieData.results[0];
+      const nockMovie = nockData.results[0];
+
+      expect(sampleMovie).toHaveProperty('id');
+      expect(sampleMovie).toHaveProperty('title');
+      expect(sampleMovie).toHaveProperty('poster');
+      expect(sampleMovie).toHaveProperty('genre');
+      expect(sampleMovie).toHaveProperty('favourite');
+      expect(sampleMovie).toHaveProperty('watchLater');
+
+      expect(sampleMovie.id).toBe(nockMovie.id);
+    }
   });
 });
 

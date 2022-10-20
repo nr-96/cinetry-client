@@ -8,7 +8,7 @@ function TrendingMovies() {
 
   return (
     <div>
-      <StyledTitle>Trending Movies</StyledTitle>
+      <StyledTitle data-testid="title">Trending Movies</StyledTitle>
       <MovieCarousel>
         {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
           <MovieCard

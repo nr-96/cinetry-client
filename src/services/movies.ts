@@ -31,10 +31,10 @@ interface IMovieListResponseItem {
 interface IQGenre {
   results: Array<IGenre>;
 }
-interface IQTrendingMovies {
+export interface IQTrendingMovies {
   results: Array<IMovieListItem>;
 }
-interface IQDiscoverMovies {
+export interface IQDiscoverMovies {
   results: Array<IMovieListItem>;
   meta?: IMeta;
 }
@@ -47,7 +47,7 @@ export interface IDiscoverMovies {
 }
 
 let Authorization =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjcwNTY4LCJleHAiOjE2NjYyODU1Njh9.aLDllGZj_ir6RYdDYPY5lgS00G1d33BumKrrz6GMhU8';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2Mjg5NDkwLCJleHAiOjE2NjYzMDQ0OTB9.JPfMk0IzOHRT5K4mgrZ9-7zA3WmEiFup2XFH0YsLR5g';
 
 const updateMovieListItem = (
   movies: IMovieListItem[],

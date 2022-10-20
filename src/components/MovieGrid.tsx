@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { colors } from './common';
 
 interface IMovieGridProps {
+  testId?: string;
   children: JSX.Element[];
 }
 
-function MovieGrid({ children }: IMovieGridProps) {
+function MovieGrid({ testId, children }: IMovieGridProps) {
   return (
-    <StyledCard>
+    <StyledCard data-testid={testId}>
       <Row gutter={[16, 16]}>{children}</Row>
     </StyledCard>
   );
