@@ -8,11 +8,21 @@ interface ISelectOption {
 
 interface ISelectProps {
   options: Array<ISelectOption>;
+  onChange: (value: string) => void;
 }
 
-function Single({ options }: ISelectProps) {
+interface ISelectMultipleProps {
+  options: Array<ISelectOption>;
+  onChange: (value: string[]) => void;
+}
+
+function Single({ options, onChange }: ISelectProps) {
   const handleChange = (value: unknown) => {
-    console.log(`selected ${value}`);
+    if (typeof value === 'string') {
+      onChange(value);
+    } else {
+      onChange('');
+    }
   };
 
   return (
@@ -24,9 +34,13 @@ function Single({ options }: ISelectProps) {
   );
 }
 
-function Multiple({ options }: ISelectProps) {
+function Multiple({ options, onChange }: ISelectMultipleProps) {
   const handleChange = (value: unknown) => {
-    console.log(`selected ${Array.isArray(value)}`);
+    if (Array.isArray(value)) {
+      onChange(value);
+    } else {
+      onChange([]);
+    }
   };
 
   return (

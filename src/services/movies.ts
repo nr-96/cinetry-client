@@ -27,12 +27,15 @@ interface IQTrendingMovies {
   results: Array<IMovieListItem>;
 }
 
-interface IDiscoverMovies {
+export interface IDiscoverMovies {
+  query?: string;
   page?: number;
+  genre?: string;
+  year?: string;
 }
 
 let Authorization =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjUxNzE5LCJleHAiOjE2NjYyNjY3MTl9.tlPKN8swGymfup1FB3bKtSijPBVqk52un0Wdu5YWLic';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjU0Nzg4LCJleHAiOjE2NjYyNjk3ODh9.F5LcNl40c2RnecWAj7npe7rwWoSl9Ahkd_05DGK13B4';
 
 const updateMovieListItem = (
   movies: IMovieListItem[],
@@ -77,11 +80,18 @@ const moviesService = createApi({
     /**
      * Side-effect to discover movies
      */
-    discoverMovies: builder.query<
-      IQTrendingMovies,
-      undefined | IDiscoverMovies
-    >({
-      query: (params) => {
+    discoverMovies: builder.query<IQTrendingMovies, IDiscoverMovies>({
+      query: ({ query, genre, ...props }) => {
+        const params: Omit<IDiscoverMovies, 'genre'> & {
+          with_genres?: string;
+        } = props;
+        if (query) {
+          params.query = query;
+        }
+        if (genre) {
+          params.with_genres = genre;
+        }
+
         return {
           url: '/movies/list',
           method: 'GET',
