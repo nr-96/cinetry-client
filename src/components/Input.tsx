@@ -1,23 +1,17 @@
+import { useState, useEffect, useMemo } from 'react';
 import { Input as AntInput, InputProps as AntInputProps } from 'antd';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
 
 interface IInputProps {
   placeholder?: AntInputProps['placeholder'];
-  useDebounce?: boolean;
-  onChange: (value: string) => void;
+  value: string;
+  onChange: AntInputProps['onChange'];
 }
 
-function Input({ placeholder, useDebounce, onChange }: IInputProps) {
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
+function Input({ placeholder, value, onChange }: IInputProps) {
   return (
-    <StyledInput
-      placeholder={placeholder}
-      onChange={useDebounce ? debounce(handleOnChange, 1000) : handleOnChange}
-    />
+    <StyledInput placeholder={placeholder} value={value} onChange={onChange} />
   );
 }
 

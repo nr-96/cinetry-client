@@ -35,7 +35,7 @@ export interface IDiscoverMovies {
 }
 
 let Authorization =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjU0Nzg4LCJleHAiOjE2NjYyNjk3ODh9.F5LcNl40c2RnecWAj7npe7rwWoSl9Ahkd_05DGK13B4';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjcwNTY4LCJleHAiOjE2NjYyODU1Njh9.aLDllGZj_ir6RYdDYPY5lgS00G1d33BumKrrz6GMhU8';
 
 const updateMovieListItem = (
   movies: IMovieListItem[],
@@ -81,7 +81,7 @@ const moviesService = createApi({
      * Side-effect to discover movies
      */
     discoverMovies: builder.query<IQTrendingMovies, IDiscoverMovies>({
-      query: ({ query, genre, ...props }) => {
+      query: ({ query, genre, year, ...props }) => {
         const params: Omit<IDiscoverMovies, 'genre'> & {
           with_genres?: string;
         } = props;
@@ -90,6 +90,9 @@ const moviesService = createApi({
         }
         if (genre) {
           params.with_genres = genre;
+        }
+        if (year) {
+          params.year = year;
         }
 
         return {

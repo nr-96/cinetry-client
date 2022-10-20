@@ -7,16 +7,20 @@ interface ISelectOption {
 }
 
 interface ISelectProps {
+  placeholder?: string;
   options: Array<ISelectOption>;
+  value?: string;
   onChange: (value: string) => void;
 }
 
 interface ISelectMultipleProps {
+  placeholder?: string;
   options: Array<ISelectOption>;
+  value: string[];
   onChange: (value: string[]) => void;
 }
 
-function Single({ options, onChange }: ISelectProps) {
+function Single({ placeholder, options, value, onChange }: ISelectProps) {
   const handleChange = (value: unknown) => {
     if (typeof value === 'string') {
       onChange(value);
@@ -26,15 +30,24 @@ function Single({ options, onChange }: ISelectProps) {
   };
 
   return (
-    <StyledSelect onChange={handleChange}>
+    <StyledSelectSingle
+      placeholder={placeholder}
+      value={value}
+      onChange={handleChange}
+    >
       {options.map(({ key, value }) => (
-        <StyledSelect.Option key={key}>{value}</StyledSelect.Option>
+        <StyledSelectSingle.Option key={key}>{value}</StyledSelectSingle.Option>
       ))}
-    </StyledSelect>
+    </StyledSelectSingle>
   );
 }
 
-function Multiple({ options, onChange }: ISelectMultipleProps) {
+function Multiple({
+  placeholder,
+  options,
+  value,
+  onChange,
+}: ISelectMultipleProps) {
   const handleChange = (value: unknown) => {
     if (Array.isArray(value)) {
       onChange(value);
@@ -44,15 +57,29 @@ function Multiple({ options, onChange }: ISelectMultipleProps) {
   };
 
   return (
-    <StyledSelect mode="multiple" allowClear onChange={handleChange}>
+    <StyledSelectMultiple
+      allowClear
+      mode="multiple"
+      placeholder={placeholder}
+      value={value}
+      onChange={handleChange}
+    >
       {options.map(({ key, value }) => (
-        <StyledSelect.Option key={key}>{value}</StyledSelect.Option>
+        <StyledSelectMultiple.Option key={key}>
+          {value}
+        </StyledSelectMultiple.Option>
       ))}
-    </StyledSelect>
+    </StyledSelectMultiple>
   );
 }
 
-const StyledSelect = styled(AntSelect)``;
+const StyledSelectSingle = styled(AntSelect)`
+  min-width: 100px;
+`;
+
+const StyledSelectMultiple = styled(AntSelect)`
+  min-width: 150px;
+`;
 
 export default {
   Single,

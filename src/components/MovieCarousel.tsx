@@ -55,6 +55,10 @@ function MovieCarousel({ children }: IMovieCarouselProps) {
 
 const StyledCard = styled(Card)`
   background: ${colors['bg:primary']};
+
+  .ant-card-body {
+    padding: 0;
+  }
 `;
 
 const StyledCarousel = styled(Carousel)`

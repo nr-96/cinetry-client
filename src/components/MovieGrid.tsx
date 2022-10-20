@@ -16,6 +16,11 @@ function MovieGrid({ children }: IMovieGridProps) {
 
 const StyledCard = styled(Card)`
   background: ${colors['bg:primary']};
+  border: none;
+
+  .ant-card-body {
+    padding: 0;
+  }
 `;
 
 export default MovieGrid;

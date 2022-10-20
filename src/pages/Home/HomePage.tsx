@@ -1,4 +1,4 @@
-import { Container } from '../../components';
+import { Container, Divider } from '../../components';
 import MoviesFeature from '../../features/Movies';
 
 const { TrendingMovies, DiscoverMovies } = MoviesFeature;
@@ -8,6 +8,7 @@ function HomePage() {
     <Container xs={24}>
       <>
         <TrendingMovies />
+        <Divider />
         <DiscoverMovies />
       </>
     </Container>
