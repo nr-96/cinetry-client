@@ -3,22 +3,50 @@ import styled from 'styled-components';
 import Icons from './Icons';
 import { colors } from './common';
 
+export interface IToggleFavourite {
+  id: number;
+  isFavourite: boolean;
+}
+
+export interface IToggleWatchLater {
+  id: number;
+  isWatchLater: boolean;
+}
 export interface IMovieCardProps {
+  id: number;
   title: string;
   poster: string;
   genre: Array<{ id: number; name: string }>;
   watchLater: boolean;
   favourite: boolean;
+  toggleFavourite: (payload: IToggleFavourite) => void;
+  toggleWatchLater: (payload: IToggleWatchLater) => void;
 }
 
 function MovieCard({
+  id,
   title,
   poster,
   genre,
   watchLater,
   favourite,
+  toggleFavourite,
+  toggleWatchLater,
 }: IMovieCardProps) {
   const baseUrl = 'https://image.tmdb.org/t/p/original';
+
+  const handleFavourite = () =>
+    toggleFavourite({
+      id,
+      isFavourite: !favourite,
+    });
+
+  const handleWatchLater = () =>
+    toggleWatchLater({
+      id,
+      isWatchLater: !watchLater,
+    });
+
   return (
     <StyledCard>
       <img style={{ width: '100%' }} alt={title} src={`${baseUrl}${poster}`} />
@@ -26,10 +54,10 @@ function MovieCard({
         <div className="action-item">
           <Icons.ExpandMovieIcon />
         </div>
-        <div className="action-item">
+        <div className="action-item" onClick={handleFavourite}>
           <Icons.FavouriteMovieIcon favourite={favourite} />
         </div>
-        <div className="action-item">
+        <div className="action-item" onClick={handleWatchLater}>
           <Icons.WatchLaterMovieIcon inList={watchLater} />
         </div>
       </StyledActions>

@@ -6,10 +6,10 @@ import MovieCard, { IMovieCardProps } from './MovieCard';
 import { colors } from './common';
 
 interface IMovieCarouselProps {
-  movies: Array<{ id: number } & IMovieCardProps>;
+  children: JSX.Element[];
 }
 
-function MovieCarousel({ movies }: IMovieCarouselProps) {
+function MovieCarousel({ children }: IMovieCarouselProps) {
   return (
     <StyledCard bordered={false}>
       <StyledCarousel
@@ -47,16 +47,7 @@ function MovieCarousel({ movies }: IMovieCarouselProps) {
         containerClass="carousel-container"
         itemClass="carousel-item"
       >
-        {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
-          <MovieCard
-            key={id}
-            title={title}
-            poster={poster}
-            genre={genre}
-            watchLater={watchLater}
-            favourite={favourite}
-          />
-        ))}
+        {children}
       </StyledCarousel>
     </StyledCard>
   );
