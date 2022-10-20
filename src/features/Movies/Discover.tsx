@@ -2,7 +2,14 @@ import { useState, useEffect, useMemo } from 'react';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 import debounce from 'lodash/debounce';
-import { Divider, MovieGrid, MovieCard, Input, Select } from '../../components';
+import {
+  Divider,
+  MovieGrid,
+  MovieCard,
+  Input,
+  Select,
+  Pagination,
+} from '../../components';
 import { useDiscoverMoviesQuery, IDiscoverMovies } from '../../services/movies';
 import { useToggleFavourite, useToggleWatchLater } from './shared';
 
@@ -55,7 +62,7 @@ function DiscoverMovies() {
     }));
   };
 
-  const handleClickPage = (value: number) => {
+  const handleChagePagination = (value: number) => {
     setController((prevState) => ({ ...prevState, page: value }));
   };
 
@@ -70,6 +77,7 @@ function DiscoverMovies() {
   }, [page, year, sGenre]);
 
   const movies = data?.results || [];
+  const meta = data?.meta;
 
   return (
     <StyledWrapper>
@@ -127,8 +135,13 @@ function DiscoverMovies() {
         ))}
       </MovieGrid>
 
-      <button onClick={() => handleClickPage(page + 1)}>up</button>
-      <button onClick={() => handleClickPage(page - 1)}>down</button>
+      <Divider />
+
+      <Pagination
+        current={page}
+        pages={meta?.totalPages}
+        onChange={handleChagePagination}
+      />
     </StyledWrapper>
   );
 }

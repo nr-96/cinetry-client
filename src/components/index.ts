@@ -8,5 +8,6 @@ export { default as MovieCarousel } from './MovieCarousel';
 export { default as Input } from './Input';
 export { default as Select } from './Select';
 export { default as Divider } from './Divider';
+export { default as Pagination } from './Pagination';
 export { default as Icons } from './Icons';
 export { default as Messages } from './Messages';

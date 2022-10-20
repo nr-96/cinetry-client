@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const { REACT_APP_BASE_URL } = process.env;
+
+interface IMeta {
+  page: number;
+  totalPages: number;
+}
 interface IGenre {
   id: number;
   name: string;
@@ -25,6 +30,10 @@ interface IMovieListResponseItem {
 }
 interface IQTrendingMovies {
   results: Array<IMovieListItem>;
+}
+interface IQDiscoverMovies {
+  results: Array<IMovieListItem>;
+  meta?: IMeta;
 }
 
 export interface IDiscoverMovies {
@@ -80,7 +89,7 @@ const moviesService = createApi({
     /**
      * Side-effect to discover movies
      */
-    discoverMovies: builder.query<IQTrendingMovies, IDiscoverMovies>({
+    discoverMovies: builder.query<IQDiscoverMovies, IDiscoverMovies>({
       query: ({ query, genre, year, ...props }) => {
         const params: Omit<IDiscoverMovies, 'genre'> & {
           with_genres?: string;
@@ -104,7 +113,7 @@ const moviesService = createApi({
           params,
         };
       },
-      transformResponse: ({ data }) => {
+      transformResponse: ({ data, meta }) => {
         const results = data.map((movie: IMovieListResponseItem) => {
           const { watch_later: watchLater, ...rest } = movie;
           return {
@@ -113,7 +122,12 @@ const moviesService = createApi({
           };
         });
 
-        return { results };
+        const resultsMeta: IMeta = {
+          page: meta.page,
+          totalPages: meta.total_pages,
+        };
+
+        return { results, meta: resultsMeta };
       },
       providesTags: ['DiscoverMovies'],
     }),
