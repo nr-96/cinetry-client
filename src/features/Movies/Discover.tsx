@@ -46,7 +46,7 @@ function DiscoverMovies() {
   const movies = data?.results || [];
   return (
     <>
-      <Input onChange={handleSearch} />
+      <Input useDebounce onChange={handleSearch} />
       <button onClick={() => setPage(page + 1)}>up</button>
       <button onClick={() => setPage(page - 1)}>down</button>
       <Select.Single
