@@ -32,7 +32,18 @@ interface IDiscoverMovies {
 }
 
 let Authorization =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjM1Njc5LCJleHAiOjE2NjYyNTA2Nzl9.5QWlKAsjDRPBgKNpDvF4fp8gMLPN_iQyQA9erWpiLE4';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MjUxNzE5LCJleHAiOjE2NjYyNjY3MTl9.tlPKN8swGymfup1FB3bKtSijPBVqk52un0Wdu5YWLic';
+
+const updateMovieListItem = (
+  movies: IMovieListItem[],
+  id: number,
+  updates: any
+) => {
+  const movieIndex = movies.findIndex((m) => m.id === id);
+  if (movieIndex >= 0) {
+    Object.assign(movies[movieIndex], updates);
+  }
+};
 
 const moviesService = createApi({
   reducerPath: 'moviesService',
@@ -66,7 +77,10 @@ const moviesService = createApi({
     /**
      * Side-effect to discover movies
      */
-    discoverMovies: builder.query<IQTrendingMovies, IDiscoverMovies>({
+    discoverMovies: builder.query<
+      IQTrendingMovies,
+      undefined | IDiscoverMovies
+    >({
       query: (params) => {
         return {
           url: '/movies/list',
@@ -110,18 +124,14 @@ const moviesService = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+          const updates = { favourite: true };
+
           dispatch(
             moviesService.util.updateQueryData(
               'getTrendingMovies',
               undefined,
               (draft) => {
-                const movieIndex = draft.results.findIndex((m) => m.id === id);
-                if (movieIndex >= 0) {
-                  draft.results[movieIndex] = {
-                    ...draft.results[movieIndex],
-                    favourite: true,
-                  };
-                }
+                updateMovieListItem(draft.results, id, updates);
               }
             )
           );
@@ -146,19 +156,13 @@ const moviesService = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+          const updates = { favourite: false };
+
           dispatch(
             moviesService.util.updateQueryData(
               'getTrendingMovies',
               undefined,
-              (draft) => {
-                const movieIndex = draft.results.findIndex((m) => m.id === id);
-                if (movieIndex >= 0) {
-                  draft.results[movieIndex] = {
-                    ...draft.results[movieIndex],
-                    favourite: false,
-                  };
-                }
-              }
+              (draft) => updateMovieListItem(draft.results, id, updates)
             )
           );
         } catch {}
@@ -185,19 +189,13 @@ const moviesService = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+          const updates = { watchLater: true };
+
           dispatch(
             moviesService.util.updateQueryData(
               'getTrendingMovies',
               undefined,
-              (draft) => {
-                const movieIndex = draft.results.findIndex((m) => m.id === id);
-                if (movieIndex >= 0) {
-                  draft.results[movieIndex] = {
-                    ...draft.results[movieIndex],
-                    watchLater: true,
-                  };
-                }
-              }
+              (draft) => updateMovieListItem(draft.results, id, updates)
             )
           );
         } catch {}
@@ -221,19 +219,13 @@ const moviesService = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
+          const updates = { watchLater: true };
+
           dispatch(
             moviesService.util.updateQueryData(
               'getTrendingMovies',
               undefined,
-              (draft) => {
-                const movieIndex = draft.results.findIndex((m) => m.id === id);
-                if (movieIndex >= 0) {
-                  draft.results[movieIndex] = {
-                    ...draft.results[movieIndex],
-                    watchLater: false,
-                  };
-                }
-              }
+              (draft) => updateMovieListItem(draft.results, id, updates)
             )
           );
         } catch {}
