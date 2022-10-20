@@ -28,6 +28,9 @@ interface IMovieListResponseItem {
   watch_later: boolean;
   favourite: boolean;
 }
+interface IQGenre {
+  results: Array<IGenre>;
+}
 interface IQTrendingMovies {
   results: Array<IMovieListItem>;
 }
@@ -62,6 +65,23 @@ const moviesService = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: REACT_APP_BASE_URL }),
   tagTypes: ['TrendingMovies', 'DiscoverMovies'],
   endpoints: (builder) => ({
+    /**
+     * Side-effect to fetch trending movies
+     */
+    getGenreList: builder.query<IQGenre, void>({
+      query: () => ({
+        url: '/movies/genre/list',
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      }),
+      transformResponse: ({ data }) => {
+        const results = data;
+        return { results };
+      },
+    }),
+
     /**
      * Side-effect to fetch trending movies
      */
@@ -263,6 +283,7 @@ const moviesService = createApi({
 });
 
 export const {
+  useGetGenreListQuery,
   useGetTrendingMoviesQuery,
   useDiscoverMoviesQuery,
   useAddToFavouriteMutation,

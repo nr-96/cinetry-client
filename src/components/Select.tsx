@@ -2,8 +2,8 @@ import { Select as AntSelect, SelectProps as AntSelectProps } from 'antd';
 import styled from 'styled-components';
 
 interface ISelectOption {
-  key: string;
-  value: string;
+  id: number | string;
+  name: string;
 }
 
 interface ISelectProps {
@@ -35,8 +35,10 @@ function Single({ placeholder, options, value, onChange }: ISelectProps) {
       value={value}
       onChange={handleChange}
     >
-      {options.map(({ key, value }) => (
-        <StyledSelectSingle.Option key={key}>{value}</StyledSelectSingle.Option>
+      {options.map(({ id, name }) => (
+        <StyledSelectSingle.Option key={id} value={id.toString()}>
+          {name}
+        </StyledSelectSingle.Option>
       ))}
     </StyledSelectSingle>
   );
@@ -64,9 +66,9 @@ function Multiple({
       value={value}
       onChange={handleChange}
     >
-      {options.map(({ key, value }) => (
-        <StyledSelectMultiple.Option key={key}>
-          {value}
+      {options.map(({ id, name }) => (
+        <StyledSelectMultiple.Option key={id} value={id.toString()}>
+          {name}
         </StyledSelectMultiple.Option>
       ))}
     </StyledSelectMultiple>

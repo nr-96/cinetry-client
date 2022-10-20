@@ -10,7 +10,11 @@ import {
   Select,
   Pagination,
 } from '../../components';
-import { useDiscoverMoviesQuery, IDiscoverMovies } from '../../services/movies';
+import {
+  useGetGenreListQuery,
+  useDiscoverMoviesQuery,
+  IDiscoverMovies,
+} from '../../services/movies';
 import { useToggleFavourite, useToggleWatchLater } from './shared';
 
 interface IValues {
@@ -31,6 +35,7 @@ function DiscoverMovies() {
   const { page, query = '', year = '', genre = [] } = controller;
   const sGenre = genre.join(',');
 
+  const { data: genreData } = useGetGenreListQuery();
   const { data } = useDiscoverMoviesQuery(queryParams);
   const toggleFavourite = useToggleFavourite();
   const toggleWatchLater = useToggleWatchLater();
@@ -54,6 +59,11 @@ function DiscoverMovies() {
   };
 
   const handleSelectGenre = (value: string[]) => {
+    if (value.length > 3) {
+      // TODO: Show warning as it should not exceed 3 genres
+      return;
+    }
+
     setController((prevState) => ({
       year: prevState.year,
       page: 1,
@@ -91,27 +101,34 @@ function DiscoverMovies() {
             onChange={handleSearch}
           />
         </Col>
-        <StyledFilterWrapper md={8}>
+        <StyledFilterWrapper md={10}>
           <StyledLabel>Filter by:</StyledLabel>
           <Select.Single
             placeholder="2022"
             value={year}
             onChange={handleSelectYear}
             options={[
-              { key: '', value: 'All' },
-              { key: '2012', value: '2012' },
-              { key: '2013', value: '2013' },
+              { id: '', name: 'All' },
+              { id: '2010', name: '2010' },
+              { id: '2011', name: '2011' },
+              { id: '2012', name: '2012' },
+              { id: '2013', name: '2013' },
+              { id: '2014', name: '2014' },
+              { id: '2015', name: '2015' },
+              { id: '2016', name: '2016' },
+              { id: '2017', name: '2017' },
+              { id: '2018', name: '2018' },
+              { id: '2019', name: '2019' },
+              { id: '2020', name: '2020' },
+              { id: '2021', name: '2021' },
+              { id: '2022', name: '2022' },
             ]}
           />
           <Select.Multiple
             placeholder="Action, Thriller"
             value={genre}
             onChange={handleSelectGenre}
-            options={[
-              { key: '27', value: 'test' },
-              { key: '28', value: 'test 1' },
-              { key: '53', value: 'test 2' },
-            ]}
+            options={genreData?.results || []}
           />
         </StyledFilterWrapper>
       </Row>
