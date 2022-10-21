@@ -7,18 +7,19 @@
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^27.5.2",
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "antd": "^4.23.6",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-multi-carousel": "^2.8.2",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-select": "^5.5.4",
     "styled-components": "^5.3.6",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
@@ -29,7 +30,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --write src",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "npm run build && aws s3 sync build/ s3://cinetry-client"
   },
   "eslintConfig": {
     "extends": [
@@ -50,9 +52,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/user-event": "^14.4.3",
+    "@types/lodash": "^4.14.186",
     "@types/styled-components": "^5.1.26",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
+    "nock": "^13.2.9",
     "prettier": "2.7.1"
   },
   "lint-staged": {

@@ -2,17 +2,17 @@ import { Card } from 'antd';
 import styled from 'styled-components';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import MovieCard, { IMovieCardProps } from './MovieCard';
 import { colors } from './common';
 
 interface IMovieCarouselProps {
-  movies: Array<{ id: number } & IMovieCardProps>;
+  children: JSX.Element | JSX.Element[];
 }
 
-function MovieCarousel({ movies }: IMovieCarouselProps) {
+function MovieCarousel({ children }: IMovieCarouselProps) {
   return (
     <StyledCard bordered={false}>
       <StyledCarousel
+        slidesToSlide={2}
         swipeable={false}
         draggable={false}
         showDots={false}
@@ -38,17 +38,15 @@ function MovieCarousel({ movies }: IMovieCarouselProps) {
             items: 2,
           },
         }}
-        infinite={true}
+        infinite={false}
         autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
+        keyBoardControl={false}
+        customTransition="transform 300ms ease-in"
+        transitionDuration={300}
         containerClass="carousel-container"
         itemClass="carousel-item"
       >
-        {movies.map(({ id, title, cover, genre }) => (
-          <MovieCard key={id} title={title} cover={cover} genre={genre} />
-        ))}
+        {children}
       </StyledCarousel>
     </StyledCard>
   );
@@ -56,6 +54,10 @@ function MovieCarousel({ movies }: IMovieCarouselProps) {
 
 const StyledCard = styled(Card)`
   background: ${colors['bg:primary']};
+
+  .ant-card-body {
+    padding: 0;
+  }
 `;
 
 const StyledCarousel = styled(Carousel)`

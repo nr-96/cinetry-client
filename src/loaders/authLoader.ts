@@ -1,8 +1,16 @@
 import { redirect } from 'react-router-dom';
+import { store } from '../redux/store';
 
 const isAuthorized = (): boolean => {
-  const isAuthorized = false;
-  return isAuthorized;
+  const authToken = store.getState().global.user?.authToken;
+
+  if (!authToken) {
+    // fallback
+    const sessionUser = sessionStorage.getItem('session-user');
+    return !!sessionUser;
+  }
+
+  return !!authToken;
 };
 
 export const authLoader = () => {
@@ -13,6 +21,6 @@ export const authLoader = () => {
 
 export const unauthLoader = () => {
   if (isAuthorized()) {
-    return redirect('/movies');
+    return redirect('/home');
   }
 };

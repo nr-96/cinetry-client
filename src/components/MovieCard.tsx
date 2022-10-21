@@ -1,28 +1,81 @@
-import { Card } from 'antd';
+import { Card, Image } from 'antd';
 import styled from 'styled-components';
 import Icons from './Icons';
 import { colors } from './common';
 
-export interface IMovieCardProps {
-  title: string;
-  cover: string;
-  genre: Array<{ id: number; name: string }>;
+export interface IToggleFavourite {
+  id: number;
+  isFavourite: boolean;
 }
 
-function MovieCard({ title, cover, genre }: IMovieCardProps) {
+export interface IToggleWatchLater {
+  id: number;
+  isWatchLater: boolean;
+}
+export interface IMovieCardProps {
+  id: number;
+  title: string;
+  poster: string;
+  genre: Array<{ id: number; name: string }>;
+  watchLater: boolean;
+  favourite: boolean;
+  toggleFavourite: (payload: IToggleFavourite) => void;
+  toggleWatchLater: (payload: IToggleWatchLater) => void;
+}
+
+function MovieCard({
+  id,
+  title,
+  poster,
+  genre,
+  watchLater,
+  favourite,
+  toggleFavourite,
+  toggleWatchLater,
+}: IMovieCardProps) {
   const baseUrl = 'https://image.tmdb.org/t/p/original';
+
+  const handleFavourite = () =>
+    toggleFavourite({
+      id,
+      isFavourite: !favourite,
+    });
+
+  const handleWatchLater = () =>
+    toggleWatchLater({
+      id,
+      isWatchLater: !watchLater,
+    });
+
   return (
     <StyledCard>
-      <img style={{ width: '100%' }} alt={title} src={`${baseUrl}${cover}`} />
+      <Image
+        style={{ width: '100%' }}
+        preview={false}
+        src={`${baseUrl}${poster}`}
+        fallback="https://www.maketuwetlands.org.nz/wp-content/uploads/2018/09/placeholder_portrait-1.jpg"
+        placeholder={
+          <Image
+            preview={false}
+            src="https://www.maketuwetlands.org.nz/wp-content/uploads/2018/09/placeholder_portrait-1.jpg"
+            style={{ width: '100%' }}
+          />
+        }
+      />
       <StyledActions>
-        <div className="action-item">
+        {/* ToDo: Implement detailed view */}
+        {/* <div className="action-item">
           <Icons.ExpandMovieIcon />
+        </div> */}
+        <div
+          data-testid={`favoutite-action-${id}`}
+          className="action-item"
+          onClick={handleFavourite}
+        >
+          <Icons.FavouriteMovieIcon favourite={favourite} />
         </div>
-        <div className="action-item">
-          <Icons.FavouriteMovieIcon favourite={true} />
-        </div>
-        <div className="action-item">
-          <Icons.WatchLaterMovieIcon inList={true} />
+        <div className="action-item" onClick={handleWatchLater}>
+          <Icons.WatchLaterMovieIcon inList={watchLater} />
         </div>
       </StyledActions>
       <StyledInfo>
@@ -54,7 +107,7 @@ const StyledCard = styled(Card)`
 const StyledActions = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
+  right: 2px;
   z-index: 2;
 
   .action-item {
@@ -76,14 +129,17 @@ const StyledActions = styled.div`
 
 const StyledInfo = styled.div`
   position: absolute;
-  padding: 9px 0 11px;
+  padding: 4px 8px;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 5;
   background: rgba(38, 38, 38, 0.5);
   text-align: center;
-  line-height: 0;
+  line-height: 1;
+  height: 26px;
+  overflow: hidden;
+  overflow-y: scroll;
 
   span {
     position: relative;
@@ -95,8 +151,9 @@ const StyledInfo = styled.div`
     &:before {
       position: absolute;
       content: '.';
-      left: -5px;
-      top: 4px;
+      left: -7px;
+      top: -1px;
+      display: inline-block;
     }
   }
 `;
