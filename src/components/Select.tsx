@@ -115,6 +115,15 @@ const StyledSelectMultiple = styled(AntSelect)`
     border: 1px solid #ffffff !important;
     box-shadow: none !important;
     color: #ffffff;
+
+    .ant-select-selection-item {
+      background: #ffffff;
+      color:${colors['button:primary']};;
+
+      .anticon anticon-close {
+        color: #000000;
+      }
+    }
   }
 
   .ant-select-arrow {
@@ -124,6 +133,14 @@ const StyledSelectMultiple = styled(AntSelect)`
   &.ant-select-focused {
     .ant-select-selector {
       border: 1px solid ${colors['button:primary:focus']} !important;
+    }
+  }
+
+  .ant-select-clear {
+    background: transparent;
+    
+    .anticon-close-circle {
+      color: #ffffff;
     }
   }
 `;
