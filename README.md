@@ -32,3 +32,5 @@
 2. Implement movie 'view more' components
 3. Performance optimisation
 4. Improve code coverage
+5. Improve responsive screens
+6. Improve error handling
