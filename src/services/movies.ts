@@ -259,7 +259,7 @@ const moviesService = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-          const updates = { watchLater: true };
+          const updates = { watchLater: false };
 
           dispatch(
             moviesService.util.updateQueryData(
