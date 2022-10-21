@@ -177,11 +177,13 @@ function DiscoverMovies() {
 
       <Divider />
 
-      <Pagination
-        current={page}
-        pages={meta?.totalPages}
-        onChange={handleChagePagination}
-      />
+      {!query && (
+        <Pagination
+          current={page}
+          pages={meta?.totalPages}
+          onChange={handleChagePagination}
+        />
+      )}
     </StyledWrapper>
   );
 }
