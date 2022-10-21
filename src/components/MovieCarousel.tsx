@@ -2,11 +2,10 @@ import { Card } from 'antd';
 import styled from 'styled-components';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import MovieCard, { IMovieCardProps } from './MovieCard';
 import { colors } from './common';
 
 interface IMovieCarouselProps {
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 }
 
 function MovieCarousel({ children }: IMovieCarouselProps) {

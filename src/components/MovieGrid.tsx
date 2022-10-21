@@ -4,7 +4,7 @@ import { colors } from './common';
 
 interface IMovieGridProps {
   testId?: string;
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 }
 
 function MovieGrid({ testId, children }: IMovieGridProps) {

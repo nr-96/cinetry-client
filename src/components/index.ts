@@ -10,5 +10,6 @@ export { default as Select } from './Select';
 export { default as Divider } from './Divider';
 export { default as Pagination } from './Pagination';
 export { default as Spin } from './Spin';
+export { default as Skeleton } from './skeleton';
 export { default as Icons } from './Icons';
 export { default as Messages } from './Messages';

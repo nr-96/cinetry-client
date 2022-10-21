@@ -10,6 +10,7 @@ import {
   Select,
   Pagination,
   Spin,
+  Skeleton,
 } from '../../components';
 import {
   useGetGenreListQuery,
@@ -93,7 +94,6 @@ function DiscoverMovies() {
   return (
     <StyledWrapper>
       <StyledTitle data-testid="title">Discover Movies</StyledTitle>
-      <div data-testid="loading">{loadingMovies.toString()}</div>
       <Row justify="space-between">
         <Col md={6}>
           <Input
@@ -138,24 +138,42 @@ function DiscoverMovies() {
 
       <Divider />
 
-      <Spin testId="loading-movies-spinner" loading={loadingMovies}>
-        <MovieGrid testId="movie-grid">
-          {movies.map(({ id, title, poster, genre, watchLater, favourite }) => (
-            <Col key={id} xs={12} sm={8} md={6} lg={4} xl={3}>
-              <MovieCard
-                id={id}
-                title={title}
-                poster={poster}
-                genre={genre}
-                watchLater={watchLater}
-                favourite={favourite}
-                toggleFavourite={toggleFavourite}
-                toggleWatchLater={toggleWatchLater}
-              />
+      {!movies.length && loadingMovies ? (
+        <MovieGrid>
+          {Array.from(Array(20).keys()).map((i) => (
+            <Col key={i} xs={12} sm={8} md={6} lg={4} xl={3}>
+              <Skeleton.MovieCard loading />
             </Col>
           ))}
         </MovieGrid>
-      </Spin>
+      ) : (
+        <Spin testId="loading-movies-spinner" loading={loadingMovies}>
+          <MovieGrid testId="movie-grid">
+            {movies.length ? (
+              movies.map(
+                ({ id, title, poster, genre, watchLater, favourite }) => (
+                  <Col key={id} xs={12} sm={8} md={6} lg={4} xl={3}>
+                    <MovieCard
+                      id={id}
+                      title={title}
+                      poster={poster}
+                      genre={genre}
+                      watchLater={watchLater}
+                      favourite={favourite}
+                      toggleFavourite={toggleFavourite}
+                      toggleWatchLater={toggleWatchLater}
+                    />
+                  </Col>
+                )
+              )
+            ) : (
+              <Col span={24}>
+                <Skeleton.Empty message="No movies to display" />
+              </Col>
+            )}
+          </MovieGrid>
+        </Spin>
+      )}
 
       <Divider />
 

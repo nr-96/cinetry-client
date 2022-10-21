@@ -15,6 +15,10 @@ function Pagination({
 }: IPaginationProps) {
   const total = pageSize * pages;
 
+  if (pages <= 1) {
+    return null;
+  }
+
   return (
     <AntPagination
       showSizeChanger={false}

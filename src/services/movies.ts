@@ -47,7 +47,7 @@ export interface IDiscoverMovies {
 }
 
 let Authorization =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2Mjg5NDkwLCJleHAiOjE2NjYzMDQ0OTB9.JPfMk0IzOHRT5K4mgrZ9-7zA3WmEiFup2XFH0YsLR5g';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2MzMwMjA4LCJleHAiOjE2NjYzNDUyMDh9.KtRLCzorMiqNqaMPdSVqMk9fNqfy5xgzFL960fURc0A';
 
 const updateMovieListItem = (
   movies: IMovieListItem[],
