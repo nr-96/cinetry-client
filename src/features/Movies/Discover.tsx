@@ -139,7 +139,7 @@ function DiscoverMovies() {
       <Divider />
 
       {!movies.length && loadingMovies ? (
-        <MovieGrid>
+        <MovieGrid testId="movie-grid-skeleton">
           {Array.from(Array(20).keys()).map((i) => (
             <Col key={i} xs={12} sm={8} md={6} lg={4} xl={3}>
               <Skeleton.MovieCard loading />

@@ -43,12 +43,13 @@ describe('service: #movies > discover:feature', () => {
     const titleBlock = screen.getByTestId('title');
     expect(titleBlock.innerHTML).toBe('Discover Movies');
 
+    await waitFor(() => screen.getByTestId('movie-grid-skeleton'));
     await waitForElementToBeRemoved(() =>
-      screen.getByTestId('loading-movies-spinner')
+      screen.getByTestId('movie-grid-skeleton')
     );
 
-    const searchInput = screen.getByTestId('movie-grid');
-    expect(searchInput).toBeTruthy();
+    const movieGrid = screen.getByTestId('movie-grid');
+    expect(movieGrid).toBeTruthy();
   });
 
   it('should search movies by query', async () => {
