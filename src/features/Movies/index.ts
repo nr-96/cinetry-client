@@ -1,7 +1,9 @@
 import TrendingMovies from './Trending';
 import DiscoverMovies from './Discover';
 
-export default {
+const MovieFeatures = {
   TrendingMovies,
   DiscoverMovies,
-};
+}
+
+export default MovieFeatures;

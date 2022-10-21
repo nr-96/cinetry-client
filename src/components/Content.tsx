@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import styled from 'styled-components';
-import { colors } from './common';
+import { colors, breakpoints } from './common';
 const { Content: AntContent } = Layout;
 
 interface IContentProps {
@@ -20,10 +20,17 @@ function Content({ type, minHeight, children }: IContentProps) {
 const StyledContent = styled(({ minHeight, ...rest }) => (
   <AntContent {...rest} />
 ))`
-  padding: 25px 50px;
   background: ${({ type = 'transparent' }: IContentProps) =>
     colors[`bg:${type}`]};
   min-height: ${({ minHeight }: IContentProps) => minHeight};
+
+  @media ${breakpoints.xs} {
+    padding: 25px;
+  }
+
+  @media ${breakpoints.md} {
+    padding: 25px 50px;
+  }
 `;
 
 export default Content;

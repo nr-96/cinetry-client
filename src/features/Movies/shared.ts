@@ -1,4 +1,4 @@
-import { MovieGrid, MovieCard, MovieCardProps, Select } from '../../components';
+import {  MovieCardProps } from '../../components';
 import {
   useAddToFavouriteMutation,
   useRemoveFromFavouriteMutation,

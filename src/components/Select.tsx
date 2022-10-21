@@ -1,5 +1,6 @@
 import { Select as AntSelect } from 'antd';
 import styled from 'styled-components';
+import { colors } from './common';
 
 interface ISelectOption {
   id: number | string;
@@ -88,10 +89,43 @@ function Multiple({
 
 const StyledSelectSingle = styled(AntSelect)`
   min-width: 100px;
+
+  .ant-select-selector {
+    background-color: transparent !important;
+    border: 1px solid #ffffff !important;
+    box-shadow: none !important;
+    color: #ffffff;
+  }
+
+  .ant-select-arrow {
+    color: #ffffff;
+  }
+
+  &.ant-select-focused {
+    .ant-select-selector {
+      border: 1px solid ${colors['button:primary:focus']} !important;
+    }
+  }
 `;
 
 const StyledSelectMultiple = styled(AntSelect)`
   min-width: 150px;
+  .ant-select-selector {
+    background-color: transparent !important;
+    border: 1px solid #ffffff !important;
+    box-shadow: none !important;
+    color: #ffffff;
+  }
+
+  .ant-select-arrow {
+    color: #ffffff;
+  }
+
+  &.ant-select-focused {
+    .ant-select-selector {
+      border: 1px solid ${colors['button:primary:focus']} !important;
+    }
+  }
 `;
 
 // eslint-disable-next-line import/no-anonymous-default-export

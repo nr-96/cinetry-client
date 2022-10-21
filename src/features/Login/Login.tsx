@@ -17,7 +17,7 @@ function Login() {
     if (isSuccess) {
       navigate('/home');
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, navigate]);
 
   return (
     <Button

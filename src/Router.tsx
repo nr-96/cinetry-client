@@ -21,7 +21,7 @@ function Router() {
       const authUser: IUser = JSON.parse(sessionUser);
       dispatch(setUserAction(authUser));
     }
-  }, [authToken]);
+  }, [authToken, dispatch]);
 
   const routes = createBrowserRouter([
     {

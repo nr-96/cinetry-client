@@ -1,4 +1,4 @@
-import { Button as AntButton, ButtonProps, CarouselProps } from 'antd';
+import { Button as AntButton, ButtonProps } from 'antd';
 import styled from 'styled-components';
 import { colors } from './common';
 

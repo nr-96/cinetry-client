@@ -1,7 +1,9 @@
 import MovieCard from './MovieCard';
 import Empty from './Empty';
 
-export default {
+const Skeletons = {
   MovieCard,
   Empty,
-};
+}
+
+export default Skeletons;

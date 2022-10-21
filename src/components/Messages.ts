@@ -8,7 +8,8 @@ const showError = (text: string) => {
   message.error(text);
 };
 
-export default {
-  showSuccess,
-  showError,
+const messages = {
+  showSuccess, showError
 };
+
+export default messages;

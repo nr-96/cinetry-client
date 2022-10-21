@@ -18,8 +18,12 @@ function WatchLaterMovieIcon({ inList }: { inList: boolean }) {
   return inList ? <MinusOutlined /> : <PlusOutlined />;
 }
 
-export default {
+const Icons = {
   ExpandMovieIcon,
   FavouriteMovieIcon,
   WatchLaterMovieIcon,
-};
+}
+
+export default Icons;
+
+export {}

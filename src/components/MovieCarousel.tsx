@@ -64,6 +64,10 @@ const StyledCarousel = styled(Carousel)`
   .carousel-item {
     padding: 10px;
   }
+
+  .react-multiple-carousel__arrow {
+    background: rgba(0,0,0,0.9);
+  }
 `;
 
 export default MovieCarousel;

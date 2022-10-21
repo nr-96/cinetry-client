@@ -1,7 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
 import { Input as AntInput, InputProps as AntInputProps } from 'antd';
 import styled from 'styled-components';
-import debounce from 'lodash/debounce';
+import { colors } from './common';
 
 interface IInputProps {
   testId?: string;
@@ -21,6 +20,21 @@ function Input({ testId, placeholder, value, onChange }: IInputProps) {
   );
 }
 
-const StyledInput = styled(AntInput)``;
+const StyledInput = styled(AntInput)`
+  background: transparent;
+  border: 1px solid #ffffff;
+  box-shadow: none;
+  color: #ffffff;
+
+  &:hover {
+    border: 1px solid ${colors['button:primary']};
+    box-shadow: none;
+  }
+
+  &:focus {
+    border: 1px solid ${colors['button:primary:focus']};
+    box-shadow: none;
+  }
+`;
 
 export default Input;

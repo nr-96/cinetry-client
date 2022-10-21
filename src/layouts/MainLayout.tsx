@@ -8,9 +8,9 @@ const { Header, Footer } = Layout;
 function MainLayout() {
   return (
     <Layout>
-      <Header className="header">
+      <StyledHeader className="header">
         <StyledBrand className="logo">CINETRY</StyledBrand>
-      </Header>
+      </StyledHeader>
       <Content type="primary" minHeight="100vh">
         <Outlet />
       </Content>
@@ -20,6 +20,10 @@ function MainLayout() {
     </Layout>
   );
 }
+
+const StyledHeader = styled(Header)`
+  text-align: center;
+`;
 
 const StyledBrand = styled.div`
   padding: 0 10px;

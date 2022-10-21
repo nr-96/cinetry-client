@@ -13,3 +13,4 @@ export { default as Spin } from './Spin';
 export { default as Skeleton } from './skeleton';
 export { default as Icons } from './Icons';
 export { default as Messages } from './Messages';
+export * as common from './common';

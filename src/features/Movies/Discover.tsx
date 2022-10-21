@@ -11,6 +11,7 @@ import {
   Pagination,
   Spin,
   Skeleton,
+  common,
 } from '../../components';
 import {
   useGetGenreListQuery,
@@ -94,8 +95,8 @@ function DiscoverMovies() {
   return (
     <StyledWrapper>
       <StyledTitle data-testid="title">Discover Movies</StyledTitle>
-      <Row justify="space-between">
-        <Col md={6}>
+      <Row justify="space-between" gutter={[8, 8]}>
+        <Col xs={24} sm={24} md={10} lg={7} xxl={6}>
           <Input
             testId="search-input"
             placeholder="Search movie"
@@ -103,37 +104,41 @@ function DiscoverMovies() {
             onChange={handleSearch}
           />
         </Col>
-        <StyledFilterWrapper md={10}>
-          <StyledLabel>Filter by:</StyledLabel>
-          <Select.Single
-            testId="select-year"
-            placeholder="2022"
-            value={year}
-            onChange={handleSelectYear}
-            options={[
-              { id: '', name: 'All' },
-              { id: '2010', name: '2010' },
-              { id: '2011', name: '2011' },
-              { id: '2012', name: '2012' },
-              { id: '2013', name: '2013' },
-              { id: '2014', name: '2014' },
-              { id: '2015', name: '2015' },
-              { id: '2016', name: '2016' },
-              { id: '2017', name: '2017' },
-              { id: '2018', name: '2018' },
-              { id: '2019', name: '2019' },
-              { id: '2020', name: '2020' },
-              { id: '2021', name: '2021' },
-              { id: '2022', name: '2022' },
-            ]}
-          />
-          <Select.Multiple
-            placeholder="Action, Thriller"
-            value={genre}
-            onChange={handleSelectGenre}
-            options={genreData?.results || []}
-          />
-        </StyledFilterWrapper>
+        <StyledFilters xs={24} sm={24} md={14} lg={12} xl={10} xxl={8}>
+          <div className="wrapper">
+            <StyledLabel>Filter by:</StyledLabel>
+            <StyledFilterContainer>
+              <Select.Single
+                testId="select-year"
+                placeholder="2022"
+                value={year}
+                onChange={handleSelectYear}
+                options={[
+                  { id: '', name: 'All' },
+                  { id: '2010', name: '2010' },
+                  { id: '2011', name: '2011' },
+                  { id: '2012', name: '2012' },
+                  { id: '2013', name: '2013' },
+                  { id: '2014', name: '2014' },
+                  { id: '2015', name: '2015' },
+                  { id: '2016', name: '2016' },
+                  { id: '2017', name: '2017' },
+                  { id: '2018', name: '2018' },
+                  { id: '2019', name: '2019' },
+                  { id: '2020', name: '2020' },
+                  { id: '2021', name: '2021' },
+                  { id: '2022', name: '2022' },
+                ]}
+              />
+              <Select.Multiple
+                placeholder="Action, Thriller"
+                value={genre}
+                onChange={handleSelectGenre}
+                options={genreData?.results || []}
+              />
+            </StyledFilterContainer>
+          </div>
+        </StyledFilters>
       </Row>
 
       <Divider />
@@ -178,15 +183,19 @@ function DiscoverMovies() {
       <Divider />
 
       {!query && (
-        <Pagination
+        <StyledPaginationContainer>
+          <Pagination
           current={page}
           pages={meta?.totalPages}
           onChange={handleChagePagination}
         />
+        </StyledPaginationContainer>
       )}
     </StyledWrapper>
   );
 }
+
+const { breakpoints } = common;
 
 const StyledWrapper = styled.div`
   padding: 10px;
@@ -199,15 +208,63 @@ const StyledTitle = styled.div`
   font-weight: 600;
 `;
 
-const StyledFilterWrapper = styled(Col)`
-  display: flex;
-  justify-content: end;
+const StyledFilters = styled(Col)`
+  .wrapper {
+    @media ${breakpoints.xs} {
+      display: inline-block;
+      width: 100%;
+    }
+
+    @media ${breakpoints.sm} {
+      display: inline-flex;
+      justify-content: end;
+      width: 100%;
+    }
+
+    .ant-select {
+      margin-left: 2px;
+    }
+  }
 `;
 
-const StyledLabel = styled.span`
+const StyledFilterContainer = styled.div`
+  @media ${breakpoints.xs} {
+    width: 100%;
+
+    .ant-select-multiple {
+      width: calc(100% - 104px);
+    }
+  }
+
+  @media ${breakpoints.sm} {
+    width: calc(100% - 90px);
+
+    .ant-select-multiple {
+      width: calc(100% - 104px);
+    }
+  }
+`;
+
+const StyledLabel = styled.div`
   font-size: 16px;
-  margin: 3px 10px 0;
   color: #fff;
+
+  @media ${breakpoints.xs} {
+    margin: 3px 0;
+  }
+
+  @media ${breakpoints.sm} {
+    margin: 3px 27px 0 0;
+    display: inline-flex;
+  }
+
+  @media ${breakpoints.md} {
+    margin-right: 15px;
+  }
+`;
+
+const StyledPaginationContainer = styled.div`
+  text-align: center;
 `;
 
 export default DiscoverMovies;
