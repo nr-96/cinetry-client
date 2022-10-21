@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../redux/store';
 
 const { REACT_APP_BASE_URL } = process.env;
 
@@ -62,7 +63,17 @@ const updateMovieListItem = (
 
 const moviesService = createApi({
   reducerPath: 'moviesService',
-  baseQuery: fetchBaseQuery({ baseUrl: REACT_APP_BASE_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: REACT_APP_BASE_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).global.user?.authToken;
+
+      if (token) {
+        headers.set('authorization', token);
+      }
+      return headers;
+    },
+  }),
   tagTypes: ['TrendingMovies', 'DiscoverMovies'],
   endpoints: (builder) => ({
     /**
@@ -89,9 +100,6 @@ const moviesService = createApi({
       query: () => ({
         url: '/movies/trending',
         method: 'GET',
-        headers: {
-          Authorization,
-        },
       }),
       transformResponse: ({ data }) => {
         const results = data.map((movie: IMovieListResponseItem) => {
@@ -127,9 +135,6 @@ const moviesService = createApi({
         return {
           url: '/movies/list',
           method: 'GET',
-          headers: {
-            Authorization,
-          },
           params,
         };
       },
@@ -160,9 +165,6 @@ const moviesService = createApi({
         return {
           url: '/movies/user/favourite',
           method: 'POST',
-          headers: {
-            Authorization,
-          },
           body: {
             movie_id: movieId,
           },
@@ -195,9 +197,6 @@ const moviesService = createApi({
         return {
           url: `/movies/user/favourite/${movieId}`,
           method: 'DELETE',
-          headers: {
-            Authorization,
-          },
         };
       },
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
@@ -225,9 +224,6 @@ const moviesService = createApi({
         return {
           url: '/movies/user/watch-later',
           method: 'POST',
-          headers: {
-            Authorization,
-          },
           body: {
             movie_id: movieId,
           },
@@ -258,9 +254,6 @@ const moviesService = createApi({
         return {
           url: `/movies/user/watch-later/${movieId}`,
           method: 'DELETE',
-          headers: {
-            Authorization,
-          },
         };
       },
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
